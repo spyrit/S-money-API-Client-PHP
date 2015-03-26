@@ -61,7 +61,7 @@ class PayInCard extends PayIn
           $value = json_decode($this->$key->encodeJson());
         } 
 
-        if (!empty($value)) {
+        if (!empty($value) || $value === false) {
           $json->$key = $value;
         }
       }
