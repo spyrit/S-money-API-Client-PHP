@@ -1,8 +1,13 @@
 # S-money-API-Client-PHP
 PHP Client API updated by Laurent Sorba.
 
+## History/Origins
+
 Forked from S-money/S-money-API-Client-PHP
+
 Used some fixes from spyrit/S-money-API-Client-PHP
+
+## Updates
 
 - [X] Fixes from spyrit
   - [X] Update UserProfile.php: The format recognized by the API is not ATOM but "Y-m-d\TH:i:s"
