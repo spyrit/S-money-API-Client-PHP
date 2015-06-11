@@ -17,7 +17,6 @@ class UserProfile
 		$this->Civility    = Civility::$civility["Empty"];
 		$this->FirstName   = "";
 		$this->LastName    = "";
-	/*	$this->Birthdate   = date(DateTime::ATOM, '1879-03-14 00:00:00');*/
 		$this->Birthdate   = null;
 		$this->Address     = new Address();
 		$this->PhoneNumber = "";
@@ -40,7 +39,7 @@ class UserProfile
 	public function setCivility 		($Civility) 		{ return ($this->Civility=$Civility); }
 	public function setFirstName 		($FirstName) 		{ return ($this->FirstName=$FirstName); }
 	public function setLastName 		($LastName) 		{ return ($this->LastName=$LastName); }
-	public function setBirthdate 		($Birthdate) 		{ return ($this->Birthdate=$Birthdate); }
+	public function setBirthdate 		($Birthdate) 		{ return ($this->Birthdate=$Birthdate->format("Y-m-d\TH:i:s")); }
 	public function setAddress 			($Address) 			{ return ($this->Address=$Address); }
 	public function setPhoneNumber 		($PhoneNumber) 		{ return ($this->PhoneNumber=$PhoneNumber); }
 	public function setEmail 			($Email) 			{ return ($this->Email=$Email); }
@@ -100,7 +99,7 @@ class UserProfile
 		$this->FirstName = $array["FirstName"];
 		$this->LastName  = $array["LastName"];
 		if (isset($array["Birthdate"]) && !is_null($array["Birthdate"])) {
-			$this->Birthdate = date(DateTime::ATOM, strtotime($array["Birthdate"]));
+			$this->Birthdate = date("Y-m-d\TH:i:s", strtotime($array["Birthdate"]));
 		}
 		
 		/****/
