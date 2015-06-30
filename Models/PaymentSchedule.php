@@ -55,7 +55,7 @@ class PaymentSchedule
   		return json_encode($json);
   	}
 
-	public function init($Amount, $Period, $Count=1, $Fee = '')
+	public function init($Amount=0, $Period=30, $Count=1, $Fee = '')
 	{
 		$this->firstAmount		=$Amount;
         if ($Fee!='')

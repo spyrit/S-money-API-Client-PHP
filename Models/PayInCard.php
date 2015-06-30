@@ -7,33 +7,40 @@ class PayInCard extends PayIn
   public $href;
   public $availableCards;
   public $ismine = true;
+  public $paymentSchedule;
   
   public function __construct()
   {
     parent::__construct();
     $this->orderId   = "";
     $this->urlReturn = "";
+    $this->urlCallback = "";
     $this->href      = "";
-    $this->availableCards     = "";
+    $this->availableCards = "";
     $this->ismine    = true;
     $this->errorCode = null;
-    $this->extraResults =null;
+    $this->extraResults = null;
+    $this->paymentSchedule = null;
   }
   
   public function getOrderId()      {return$this->orderId;}
   public function getUrlReturn()      {return $this->urlReturn;}
+  public function getUrlCallback()      {return $this->urlCallback;}
   public function getHref()       {return $this->href;}
   public function getCards()       {return $this->availableCards;}
   public function getErrorCode()  {return $this->errorCode;}
   public function getExtraResults()  {return $this->extraResults;}
   public function getIsMine()  {return $this->ismine;}
+  public function getPaymentSchedule()  {return $this->paymentSchedule;}
 
   public function setOrderId ($OrderId) { return ($this->orderId=$OrderId); }
   public function setUrlReturn  ($UrlReturn)  { return ($this->urlReturn=$UrlReturn); }
+  public function setUrlCallback ($UrlCallback)  { return ($this->urlCallback=$UrlCallback); }
   public function setHref     ($href)     { return ($this->href=$href); }
   public function setErrorCode     ($ErrorCode)     { return ($this->errorCode=$ErrorCode); }
   public function setExtraResults($extraResults)  {return ($this->extraResults = $extraResults);}
   public function setIsMine($isMine)  {return ($this->ismine = $isMine);}
+  public function setPaymentSchedule($paymentschedule)  {return ($this->paymentSchedule = $paymentschedule);}
 
   public function setCards($cards)
   {
@@ -45,8 +52,10 @@ class PayInCard extends PayIn
     $list = array (
       'orderId'   => $this->orderId,
       'urlReturn' => $this->urlReturn,
+      'urlCallback' => $this->urlCallback,
       'href'      => $this->href,
-      'cards'     => $this->availableCards
+      'cards'     => $this->availableCards,
+      'paymentSchedule' => $this->paymentSchedule
     );
     return $list;
   }
@@ -66,6 +75,7 @@ class PayInCard extends PayIn
         }
       }
 
+      #print json_encode($json);
       return json_encode($json);
     }
 
@@ -88,6 +98,9 @@ class PayInCard extends PayIn
 
     if (isset($array["UrlReturn"])) {      
       $this->urlReturn =$array["UrlReturn"];
+    }
+    if (isset($array["UrlCallback"])) {      
+      $this->urlCallback =$array["UrlCallback"];
     }
 
     $this->setErrorCode($array['ErrorCode']);
