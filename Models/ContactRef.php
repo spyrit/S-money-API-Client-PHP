@@ -26,7 +26,7 @@ class ContactRef
 	public function setIsBlocked 	($IsBlocked) 	{ return ($this->IsBlocked=$IsBlocked); }
 	public function setHref			($Href)			{ return ($this->Href=$Href); }	
   
-	public function getHref ()
+	public function getHrefList ()
   {
 	$list = array ('AccountId' 		  => $this->AccountId,
 				   'IsSmoneyUser' => $this->IsSmoneyUser,
