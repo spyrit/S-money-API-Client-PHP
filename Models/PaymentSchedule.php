@@ -11,15 +11,15 @@ class PaymentSchedule
 {
 	public $firstAmount;
 	public $firstFee;
-	public $nbcount;
+	public $count;
 	public $period;
 	
 	public function __construct()
 	{
 		$this->firstAmount  =0;
 		$this->firstFee		=null;
-		$this->count        =1;
-		$this->period       =30;
+		$this->count        =0;
+		$this->period       =0;
 	
 	}
 	
@@ -55,10 +55,10 @@ class PaymentSchedule
   		return json_encode($json);
   	}
 
-	public function init($Amount=0, $Period=30, $Count=3, $Fee = '')
+	public function init($Amount=0, $Period=30, $Count=3, $Fee = 0)
 	{
 		$this->firstAmount		=$Amount;
-        if ($Fee!='')
+        if ($Fee!=0)
 		    $this->firstFee		=$Fee;
 		$this->count            =$Count;
 		$this->period   		=$Period;
