@@ -39,8 +39,8 @@ class UserClient extends SMoneyClient
 	public function putUser($Identifier, $User)
 	{
 		$Identifier = (string) $Identifier;
-		$Url = (!is_null($Identifier)) ? 'users' :'users/'.$Identifier;
-		return $this->putObject('User', $Url);
+		$Url = (is_null($Identifier)) ? 'users' :'users/'.$Identifier;
+		return $this->putObject($User, $Url);
 	}
 	
 
