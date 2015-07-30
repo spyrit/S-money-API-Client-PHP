@@ -45,6 +45,7 @@ class MoneyOutQuote
     {
         $json = new StdClass();
         foreach ($this as $key => $value){
+		  if(is_null($value)) continue;
           $lowerKey = strtolower($key);
           $json->$lowerKey = $value;
         }
