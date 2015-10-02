@@ -2,26 +2,26 @@
 
 class CompanyProfile
 {
-	public $CompanyName;
-	public $CompanySiret;
+	public $Name;
+	public $Siret;
 	
 	public function __construct()
 	{
-		$this->CompanyName   = "";
-		$this->CompanySiret  = "";
+		$this->Name   = "";
+		$this->Siret  = "";
 	}
 	
-	public function getCompanyName() 		{return $this->CompanyName;}
-	public function getCompanySiret() 		{return $this->CompanySiret;}
+	public function getName() 		{return $this->Name;}
+	public function getSiret() 		{return $this->Siret;}
 	
 	
-	public function setCompanyName 	($CompanyName) 		{ return ($this->CompanyName=$CompanyName); }
-	public function setCompanySiret	($CompanySiret) 	{ return ($this->CompanySiret=$CompanySiret); }
+	public function setName 	($Name) 		{ return ($this->Name=$Name); }
+	public function setSiret	($Siret) 	{ return ($this->Siret=$Siret); }
    
 	public function getAttributes ()
     {
-		$list = array (	'Name' 			=> $this->CompanyName, 
-				   		'Siret'    		=> $this->CompanySiret);
+		$list = array (	'Name' 			=> $this->Name, 
+				   		'Siret'    		=> $this->Siret);
 		return $list;
 	}
   	
@@ -30,7 +30,10 @@ class CompanyProfile
   	    $json = new StdClass();
   		foreach ($this as $key => $value){
 
-  			$lowerKey = strtolower($key);
+            if ($key=="Siret")
+                $lowerKey = strtoupper($key);
+            else
+                $lowerKey = strtolower($key);
   			if (is_object($this->$key) && method_exists($this->$key, 'encodeJson')) {
   				$value = json_decode($this->$key->encodeJson());
   			} 
@@ -42,15 +45,15 @@ class CompanyProfile
   		return json_encode($json);
   	}
 	
-	public function init($CompanyName, $CompanySiret)
+	public function init($Name, $Siret)
 	{
-		$this->CompanyName    = $CompanyName;
-		$this->CompanySiret   = $CompanySiret;
+		$this->Name    = $Name;
+		$this->Siret   = $Siret;
 	}
 	
 	public function initObject($array)
 	{
-		$this->CompanyName  = $array["Name"];
-		$this->CompanySiret = $array["Siret"];
+		$this->Name  = $array["Name"];
+		$this->Siret = $array["SIRET"];
 	}
 }

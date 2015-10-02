@@ -5,7 +5,7 @@ class User
 	public $Id;
 	public $AppUserId;
 	public $Role;
-	public $UserType;
+	public $Type;
 	public $Profile;
 	public $Company;
 	public $Amount;
@@ -20,7 +20,7 @@ class User
 		$this->Id           = 0;
 		$this->AppUserId    ="";
 		$this->Role         = new ClientRole(ClientRole::$clientRole["Standard"]);
-        $this->UserType     = 0; // N/A 
+        $this->Type         = 0; // N/A 
 		$this->Profile      = new UserProfile();
 		$this->Company      = null;
 		$this->Amount       = 0;
@@ -34,7 +34,7 @@ class User
 	public function getId() 			{return $this->Id;}
 	public function getAppUserId() 		{return $this->AppUserId;}
 	public function getRole()			{return $this->Role;}
-	public function getUserType()		{return $this->UserType;}
+	public function getType()     		{return $this->Type;}
 	public function getProfile() 		{return $this->Profile;}
 	public function getCompany() 		{return $this->Company;}
 	public function getAmount()			{return $this->Amount;}
@@ -47,7 +47,7 @@ class User
 	public function setId 				($Id) 				{ return ($this->Id=$Id); }
 	public function setAppUserId 		($AppUserId) 		{ return ($this->AppUserId=$AppUserId); }
 	public function setRole 			($Role) 			{ return ($this->Role=$Role); }
-	public function setUserType         ($UserType) 		{ return ($this->UserType=$UserType); }
+	public function setType             ($Type) 	    	{ return ($this->Type=$Type); }
 	public function setProfile 			($Profile) 			{ return ($this->Profile=$Profile); }
 	public function setCompany          ($Company) 			{ return ($this->Company=$Company); }
 	public function setAmount 			($Amount) 			{ return ($this->Amount=$Amount); }
@@ -61,7 +61,7 @@ class User
 		$list = array (	'Id' 		  		=> $this->Id, 
 				   		'AppUserId' 	  	=> $this->AppUserId, 
 				   		'Role' 	  			=> $this->Role, 
-				   		'Type' 	  			=> $this->UserType, 
+				   		'Type' 	  			=> $this->Type, 
 				   		'Profile' 			=> $this->Profile,
 				   		'Company' 			=> $this->Company,
 				   		'Amount' 			=> $this->Amount,
@@ -90,13 +90,13 @@ class User
   		return json_encode($json);
   	}
 
-  	public function init($Id, $AppUserId, $Role, $UserType, $Profile, $Company, $Amount, $SubAccounts, 
+  	public function init($Id, $AppUserId, $Role, $Type, $Profile, $Company, $Amount, $SubAccounts, 
   								$BankAccounts, $CBCards, $Status)
   	{
   		$this->Id				=$Id;
 		$this->AppUserId		=$AppUserId;
 		$this->Role				=$Role;
-		$this->UserType         =$UserType;
+		$this->Type             =$Type;
 		$this->Profile			=$Profile;
 		$this->Company          =$Company;
 		$this->Amount			=$Amount;
@@ -111,7 +111,7 @@ class User
   		$this->Id				=$array["Id"];
 		$this->AppUserId		=$array["AppUserId"];
 		$this->Role				=$array["Role"];
-		$this->UserType         =$array["Type"];
+		$this->Type             =$array["Type"];
 		$userProfile 			=new UserProfile();
 		$userProfile			->initObject($array["Profile"]);
 		$this->Profile			=$userProfile;
