@@ -17,7 +17,6 @@ class UserProfile
 		$this->Civility    = Civility::$civility["Empty"];
 		$this->FirstName   = "";
 		$this->LastName    = "";
-	/*	$this->Birthdate   = date(DateTime::ATOM, '1879-03-14 00:00:00');*/
 		$this->Birthdate   = null;
 		$this->Address     = new Address();
 		$this->PhoneNumber = "";

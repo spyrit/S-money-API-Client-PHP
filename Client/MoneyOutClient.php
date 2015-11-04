@@ -21,7 +21,7 @@ class MoneyOutClient extends SMoneyClient
 		return $this->postObject($MoneyOutQuote, $Url);
 	}	*/
 	
-	public function postRecurringMoneyOut(MoneyOut $MoneyOut, $UserId)
+	public function postRecurringMoneyOut($MoneyOut, $UserId)
 	{
 		if($UserId != null)
 			$Url ='users/'.$UserId.'/moneyouts/recurring';

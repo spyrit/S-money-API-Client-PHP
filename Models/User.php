@@ -5,7 +5,9 @@ class User
 	public $Id;
 	public $AppUserId;
 	public $Role;
+	public $Type;
 	public $Profile;
+	public $Company;
 	public $Amount;
 	public $SubAccounts;
 	public $BankAccounts;
@@ -18,7 +20,9 @@ class User
 		$this->Id           = 0;
 		$this->AppUserId    ="";
 		$this->Role         = new ClientRole(ClientRole::$clientRole["Standard"]);
+        $this->Type         = 0; // N/A 
 		$this->Profile      = new UserProfile();
+		$this->Company      = null;
 		$this->Amount       = 0;
 		$this->SubAccounts  = array();
 		$this->BankAccounts = array();
@@ -30,7 +34,9 @@ class User
 	public function getId() 			{return $this->Id;}
 	public function getAppUserId() 		{return $this->AppUserId;}
 	public function getRole()			{return $this->Role;}
+	public function getType()     		{return $this->Type;}
 	public function getProfile() 		{return $this->Profile;}
+	public function getCompany() 		{return $this->Company;}
 	public function getAmount()			{return $this->Amount;}
 	public function getSubAccounts()	{return $this->SubAccounts;}
 	public function getBankAccounts() 	{return $this->BankAccounts;}
@@ -41,7 +47,9 @@ class User
 	public function setId 				($Id) 				{ return ($this->Id=$Id); }
 	public function setAppUserId 		($AppUserId) 		{ return ($this->AppUserId=$AppUserId); }
 	public function setRole 			($Role) 			{ return ($this->Role=$Role); }
+	public function setType             ($Type) 	    	{ return ($this->Type=$Type); }
 	public function setProfile 			($Profile) 			{ return ($this->Profile=$Profile); }
+	public function setCompany          ($Company) 			{ return ($this->Company=$Company); }
 	public function setAmount 			($Amount) 			{ return ($this->Amount=$Amount); }
 	public function setSubAccounts 		($SubAccounts) 		{ return ($this->SubAccounts=$SubAccounts); }
 	public function setBankAccounts 	($BankAccounts) 	{ return ($this->BankAccounts=$BankAccounts); }
@@ -53,7 +61,9 @@ class User
 		$list = array (	'Id' 		  		=> $this->Id, 
 				   		'AppUserId' 	  	=> $this->AppUserId, 
 				   		'Role' 	  			=> $this->Role, 
+				   		'Type' 	  			=> $this->Type, 
 				   		'Profile' 			=> $this->Profile,
+				   		'Company' 			=> $this->Company,
 				   		'Amount' 			=> $this->Amount,
 				   		'SubAccounts' 		=> $this->SubAccounts,
 				   		'BankAccounts' 		=> $this->BankAccounts,
@@ -80,13 +90,15 @@ class User
   		return json_encode($json);
   	}
 
-  	public function init($Id, $AppUserId, $Role, $Profile, $Amount, $SubAccounts, 
+  	public function init($Id, $AppUserId, $Role, $Type, $Profile, $Company, $Amount, $SubAccounts, 
   								$BankAccounts, $CBCards, $Status)
   	{
   		$this->Id				=$Id;
 		$this->AppUserId		=$AppUserId;
 		$this->Role				=$Role;
+		$this->Type             =$Type;
 		$this->Profile			=$Profile;
+		$this->Company          =$Company;
 		$this->Amount			=$Amount;
 		$this->SubAccounts		=$SubAccounts;
 		$this->BankAccounts		=$BankAccounts;
@@ -99,11 +111,18 @@ class User
   		$this->Id				=$array["Id"];
 		$this->AppUserId		=$array["AppUserId"];
 		$this->Role				=$array["Role"];
+		$this->Type             =$array["Type"];
 		$userProfile 			=new UserProfile();
 		$userProfile			->initObject($array["Profile"]);
 		$this->Profile			=$userProfile;
 		$this->Amount			=$array["Amount"];
 		
+		if (isset($array["Company"])) {
+            $companyProfile         =new CompanyProfile();
+            $companyProfile			->initObject($array["Company"]);
+            $this->Company          =$companyProfile;
+        }
+
 		$arrayAccount = $arraybankAccountref = $arraycbc = array();
 		if (isset($array["SubAccounts"])) {
 			foreach ($array["SubAccounts"] as $value)

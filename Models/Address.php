@@ -10,7 +10,8 @@ class Address
 	
 	public function __construct()
 	{
-		$this->Country = Country::$country["France"];
+		//$this->Country = Country::$country["France"];
+		$this->Country = "FR";
 	}
 	
 	public function getStreet() 	{return $this->Street;}
