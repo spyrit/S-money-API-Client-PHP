@@ -14,9 +14,9 @@ Used some fixes from spyrit/S-money-API-Client-PHP
   - [X] Fix encoding in Country.php
   - [X] Allow false as value for JSON: When $ismine is false, it is seen as an empty value and therefore not written in the JSON output. Fix this.
 - [ ] Improvements
-  - [.] Various fixes 
+  - [.] Various fixes
   - [X] Support of an URL callback
   - [X] Support of scheduled payments
   - [X] Support Company users (name+siret)
-  - [ ] Check date format 
+  - [ ] Check date format
 

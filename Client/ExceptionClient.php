@@ -2,5 +2,4 @@
 
 class ExceptionClient extends Exception
 {
-	
 }
