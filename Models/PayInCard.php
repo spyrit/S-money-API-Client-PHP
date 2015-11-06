@@ -126,8 +126,7 @@ class PayInCard extends PayIn
             }
         }
 
-      #print json_encode($json);
-      return json_encode($json);
+        return json_encode($json);
     }
 
     public function initObject($array)

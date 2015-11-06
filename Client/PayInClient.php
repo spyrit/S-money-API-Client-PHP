@@ -16,6 +16,17 @@ class PayInClient extends SMoneyClient
         return $this->getObjectList('PayIn', $Url);
     }
 
+    public function getPayInCards($UserId)
+    {
+        if ($UserId != null) {
+            $Url = 'users/'.$UserId.'/payins/cardpayments';
+        } else {
+            $Url = 'payins/cardpayments';
+        }
+
+        return $this->getObjectList('PayInCard', $Url);
+    }
+
     public function getPayInCard($UserId, $Id)
     {
         if ($UserId != null) {

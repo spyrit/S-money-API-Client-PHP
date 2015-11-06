@@ -133,7 +133,11 @@ class PayIn
         /*********/
         if (isset($array['Fee'])) {
             $fee = new Fee();
-            $fee->initObject($array['Fee']);
+            if (is_array($array['Fee'])) {
+                $fee->initObject($array['Fee']);
+            } else {
+                $fee->init($array['Fee']);
+            }
             $this->fee = $fee;
         }
     }
