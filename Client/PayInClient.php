@@ -16,12 +16,13 @@ class PayInClient extends SMoneyClient
         return $this->getObjectList('PayIn', $Url);
     }
 
-    public function getPayInCards($UserId)
+    public function getPayInCards($UserId, $page=null, $perpage=null)
     {
+        $pagination = http_build_query(array('page' => $page, 'perpage' => $perpage));
         if ($UserId != null) {
-            $Url = 'users/'.$UserId.'/payins/cardpayments';
+            $Url = 'users/'.$UserId.'/payins/cardpayments?'.$pagination;
         } else {
-            $Url = 'payins/cardpayments';
+            $Url = 'payins/cardpayments?'.$pagination;
         }
 
         return $this->getObjectList('PayInCard', $Url);
