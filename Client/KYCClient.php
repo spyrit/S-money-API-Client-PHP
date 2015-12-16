@@ -2,6 +2,12 @@
 
 class KYCClient extends SMoneyClient
 {
+    /**
+     * @param array $files The files to upload. Array of array. Expects 'path', 'mimeType' and 'filename' for each file.
+     * @param string $UserId
+     * @throws Exception
+     * @return KYCDemand
+     */
     public function postKYCDemand($files, $UserId)
     {
         if ($UserId != null) {
@@ -10,14 +16,36 @@ class KYCClient extends SMoneyClient
             $Url = $this->baseUrl.'kyc';
         }
 
-        $Client = new Motor($Url, $this->token);
+        $hash = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 16);
+        define('MULTIPART_BOUNDARY', '--------------------------'.$hash);
+        $header = "Accept: application/vnd.s-money.v1+json\r\n";
+        $header .= 'Authorization: Bearer '.$this->token."\r\n";
+        $header .= 'Content-Type: multipart/form-data; boundary='.MULTIPART_BOUNDARY."\r\n";
+        $content = '';
 
-        /*$SubAccount=$SubAccount->encodeJSON();
-        $result = $Client->postData($SubAccount);*/
+        $i = 0;
+        foreach ($files as $file) {
+            $i++;
+            $content = '--'.MULTIPART_BOUNDARY."\r\n".
+                    'Content-Disposition: form-data; name="file'.$i.'"; filename="'.$file['filename']."\"\r\n".
+                    'Content-Type: '.$file['mimeType']."\r\n\r\n".
+                    file_get_contents($file['path'])."\r\n";
+        }
+        $content .= '--'.MULTIPART_BOUNDARY."--\r\n";
 
-        $kyc = $result['content'];
+        $options = array(
+            'http' => array(
+                'header'  => $header,
+                'method'  => 'POST',
+                'content' => $content,
+            ),
+        );
+        $context  = stream_context_create($options);
+        $json = file_get_contents($Url, false, $context);
+        $result = json_decode($json, true);
+
         $kyc = new KYCDemand();
-        $kyc->initObject($kyc);
+        $kyc->initObject($result);
 
         return $kyc;
     }
