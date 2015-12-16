@@ -32,11 +32,7 @@ class ClientRole
 
     public function encodeJSON()
     {
-        foreach ($this as $key => $value) {
-            $json->$key = $value;
-        }
-
-        return json_encode($json);
+        return json_encode($this->Value);
     }
 
     public function init($Id, $AppAccountId, $Amount, $DisplayName, $IsDefault)

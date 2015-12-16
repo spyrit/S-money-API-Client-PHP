@@ -39,6 +39,7 @@ class BankAccountRef
 
     public function encodeJSON()
     {
+        $json = new StdClass();
         foreach ($this as $key => $value) {
             $lowerKey = strtolower($key);
             $json->$lowerKey = $value;

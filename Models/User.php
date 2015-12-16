@@ -196,8 +196,6 @@ class User
         }
         $this->SubAccounts = $arrayAccount;
 
-        /**/
-
         if (isset($array['BankAccounts'])) {
             foreach ($array['BankAccounts'] as $value) {
                 $bankaccountref = new BankAccountRef();

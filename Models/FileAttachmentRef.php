@@ -94,8 +94,8 @@ class FileAttachmentRef
     {
         $this->Id = $array['Id'];
         $this->Name = $array['Name'];
-        $this->Type = $array['Type'];
+        $this->Type = $array['ContentType'];
         $this->Size = $array['Size'];
-        $this->href = $array['href'];
+        $this->href = $array['Href'];
     }
 }

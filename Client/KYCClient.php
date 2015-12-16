@@ -51,21 +51,21 @@ class KYCClient extends SMoneyClient
 
         $result = $Client->getData();
 
-        if ($result['content']['Code'] != null) {
+        if (array_key_exists('Code', $result['content']) && $result['content']['Code'] != null) {
             return $result;
         } else {
-            $a;
-            $result = $result['content'];
-            if ($a != $result) {
-                foreach ($result as $value) {
+            $demands = array();
+            $results = $result['content'];
+            if (is_array($results)) {
+                foreach ($results as $result) {
                     $kyc = new KYCDemand();
-                    $kyc->initObject($kyc);
-                    $arrayResult[] = $kyc;
+                    $kyc->initObject($result);
+                    $demands[] = $kyc;
                 }
 
-                return $arrayResult;
+                return $demands;
             } else {
-                return 'Aucunes Valeurs';
+                return 'Aucune valeur';
             }
         }
     }

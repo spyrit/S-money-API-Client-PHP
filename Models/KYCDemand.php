@@ -1,6 +1,5 @@
 <?php
 
-
 class KYCDemand
 {
     public $Id;
@@ -62,6 +61,7 @@ class KYCDemand
 
     public function encodeJSON()
     {
+        $json = new StdClass();
         foreach ($this as $key => $value) {
             $lowerKey = strtolower($key);
             $json->$lowerKey = $value;

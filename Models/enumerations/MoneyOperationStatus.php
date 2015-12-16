@@ -35,6 +35,7 @@ class MoneyOperationStatus
 
     public function encodeJSON()
     {
+        $json = new StdClass();
         foreach ($this as $key => $value) {
             $json->$key = $value;
         }
