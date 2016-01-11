@@ -50,13 +50,21 @@ class SMoneyClient
     protected function handleError($response)
     {
         $Message = 'Erreur inconnue ';
-        if (isset($response['content']['ErrorMessage'])) {
-            $Message = $response['content']['ErrorMessage'];
-        } elseif ($response['content']['Message']) {
-            $Message = $response['content']['Message'];
+        $ErrorCode = 0;
+
+        if (isset($response['content'])) {
+            if (isset($response['content']['ErrorMessage'])) {
+                $Message = $response['content']['ErrorMessage'];
+            } elseif ($response['content']['Message']) {
+                $Message = $response['content']['Message'];
+            }
+            if (isset($response['content']['Code'])) {
+                $ErrorCode = $response['content']['Code'];
+            }
+        } elseif (isset($response['headers']) && isset($response['headers']['http_code'])) {
+            $ErrorCode = $response['headers']['http_code'];
         }
 
-        $ErrorCode = (isset($response['content']['Code'])) ? $response['content']['Code'] : $response['headers']['http_code'];
         throw new ExceptionClient($Message, $ErrorCode);
     }
 

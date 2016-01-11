@@ -154,7 +154,6 @@ class UserProfile
             $this->Birthdate = date("Y-m-d\TH:i:s", strtotime($array['Birthdate']));
         }
 
-        /****/
         $address = new Address();
         $address->initObject($array['Address']);
         $this->Address = $address;
@@ -163,9 +162,8 @@ class UserProfile
         $this->Email = $array['Email'];
         $this->Alias = $array['Alias'];
 
-        /****/
         $photo = new PhotoRef();
-        $photo->initObject($array['Photo']);
+        $photo->initObject($array['Picture']);
 
         $this->Photo = $photo;
     }

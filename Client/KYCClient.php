@@ -44,9 +44,12 @@ class KYCClient extends SMoneyClient
         $json = file_get_contents($Url, false, $context);
         $result = json_decode($json, true);
 
+        if (!self::isReponseValid($result)) {
+            return $this->handleError($result);
+        }
+
         $kyc = new KYCDemand();
         $kyc->initObject($result);
-
         return $kyc;
     }
 
