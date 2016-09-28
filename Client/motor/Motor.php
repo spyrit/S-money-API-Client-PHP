@@ -30,6 +30,11 @@ class Motor
         return $this->_launch($this->_makeUrl($pParams), 'GET');
     }
 
+    public function getPdfData($pParams = array())
+    {
+        return $this->_launch($this->_makeUrl($pParams), 'GET', null, array('Accept: application/pdf'));
+    }
+
     public function postData($pPostParams, $pGetParams = array())
     {
         return $this->_launch($this->_makeUrl($pGetParams), 'POST', $pPostParams);
@@ -52,14 +57,17 @@ class Motor
         .http_build_query($pParams);
     }
 
-    protected function _launch($pUrl, $context, $data = null)
+    protected function _launch($pUrl, $context, $data = null, $use_headers = array())
     {
-        $client = new SimpleRestClient();
-        $client->setOption(CURLOPT_HTTPHEADER, array(
+        if (!$use_headers) {
+            $use_headers = array(
                 'Accept: application/vnd.s-money.v'.$this->version.'+json',
-                'Authorization: Bearer '.$this->token,
                 'Content-type: application/vnd.s-money.v'.$this->version.'+json',
-        ));
+            );
+        }
+        $use_headers[] = 'Authorization: Bearer '.$this->token;
+        $client = new SimpleRestClient();
+        $client->setOption(CURLOPT_HTTPHEADER, $use_headers);
 
         switch ($context) {
             case 'GET':
@@ -80,6 +88,11 @@ class Motor
         }
 
         $headers = $client->getInfo();
+
+        if ($headers['content_type'] == 'application/pdf') {
+            return array('content' => $response, 'headers' => $headers);
+        }
+
         $jsonResponse = json_decode($response, true);
 
         if ($jsonResponse !== null && $jsonResponse !== false) {

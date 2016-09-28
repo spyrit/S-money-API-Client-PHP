@@ -36,4 +36,18 @@ class HistoryClient extends SMoneyClient
 
         return $list;
     }
+
+    public function getItemsPdf($userId, $beginDate, $endDate)
+    {
+        $Url = 'users/'.$userId.'/historyitems';
+        $Url = $this->baseUrl.$Url;
+        $Client = new Motor($Url, $this->token);
+        $result = $Client->getPdfData(array('datestart' => $beginDate, 'dateend' => $endDate));
+
+        if (!self::isReponseValid($result)) {
+            return $this->handleError($result);
+        }
+
+        return $result['content'];
+    }
 }
